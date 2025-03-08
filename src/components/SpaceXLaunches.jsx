@@ -22,15 +22,23 @@ const SpaceXLaunches = () => {
       const response = await axios.get(
         `https://api.spacexdata.com/v3/launches`,
         {
-          params: {
-            limit: 10,
-            offset: (page - 1) * 10,
-            mission_name: search,
-          },
+          params: { limit: 10, offset: (page - 1) * 10 },
         }
       )
-      setLaunches((prev) => [...prev, ...response.data])
-      setHasMore(response.data.length > 0)
+
+      let filteredLaunches = response.data
+
+      // Apply search filter manually
+      if (search.trim()) {
+        filteredLaunches = filteredLaunches.filter((launch) =>
+          launch.mission_name.toLowerCase().includes(search.toLowerCase())
+        )
+      }
+
+      setLaunches((prev) =>
+        page === 1 ? filteredLaunches : [...prev, ...filteredLaunches]
+      )
+      setHasMore(filteredLaunches.length > 0)
     } catch (error) {
       console.error('Error fetching launches', error)
     }
