@@ -24,7 +24,7 @@ const LaunchCard = React.forwardRef(({ launch }, ref) => {
   return (
     <div ref={ref} className="border rounded-lg p-4 shadow-lg bg-white">
       <h3 className="text-xl font-bold">
-        {launch.mission_name} <span>{launchStatus}</span>
+        {launch.mission_name} <span class="italic">{launchStatus}</span>
       </h3>
       <p className="text-gray-500">
         {years} |{' '}
@@ -47,25 +47,6 @@ const LaunchCard = React.forwardRef(({ launch }, ref) => {
             Video
           </a>
         </span>
-      </p>
-      <p>
-        <a
-          href={launch.links.article_link}
-          className="text-blue-500"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Article
-        </a>{' '}
-        |{' '}
-        <a
-          href={launch.links.video_link}
-          className="text-blue-500"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Video
-        </a>
       </p>
       <p>{launch.details || 'No details available.'}</p>
       {launch.links.mission_patch && (
